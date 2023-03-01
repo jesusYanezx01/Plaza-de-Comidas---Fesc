@@ -49,11 +49,13 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="402" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="botonRegistrarRestaurante" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="botonRegistrar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace pref="236" max="32767" attributes="0"/>
                   <Component id="botonCerrarSesion" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -64,6 +66,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botonCerrarSesion" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botonRegistrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botonRegistrarRestaurante" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="407" max="32767" attributes="0"/>
               </Group>
@@ -84,7 +87,15 @@
         </Component>
         <Component class="javax.swing.JButton" name="botonRegistrar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Registrar"/>
+            <Property name="text" type="java.lang.String" value="Registrar persona"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="botonRegistrarRestaurante">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Registrar Restaurante"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

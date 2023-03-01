@@ -6,11 +6,15 @@
 package com.mycompany.plazan.controlador;
 
 import com.mycompany.plazan.dao.Daopersona;
+import com.mycompany.plazan.dao.Daorestaurante;
+import com.mycompany.plazan.dao.IdaoRestaurante;
 import com.mycompany.plazan.dao.Idaopersona;
 import com.mycompany.plazan.modelo.Hash;
 import com.mycompany.plazan.modelo.Persona;
+import com.mycompany.plazan.modelo.Restaurante;
 import com.mycompany.plazan.vista.JfMenuPrincipal;
 import com.mycompany.plazan.vista.Jflogin;
+import com.mycompany.plazan.vista.JfregistroRestaurante;
 import com.mycompany.plazan.vista.Jfregitro;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -27,20 +31,25 @@ public class Controlador implements MouseListener {
     private Jflogin jflogin;
     private Jfregitro jfregistro;
     private JfMenuPrincipal jfMenuPrincipal;
+    private JfregistroRestaurante jfregistroRestaurante; 
     private Idaopersona idaopersona;
+    private IdaoRestaurante idaoRestaurante; 
 
     private Persona persona;
     private Hash hash; 
+    private Restaurante restaurante;
 
     public Controlador() {
         this.jflogin = new Jflogin();
         this.jfMenuPrincipal = new JfMenuPrincipal();
         this.jfregistro = new Jfregitro();
         this.jfMenuPrincipal = new JfMenuPrincipal();
+        this.jfregistroRestaurante = new JfregistroRestaurante();
         this.persona = new Persona();
         this.hash = new Hash();
+        this.restaurante = new Restaurante();
         this.idaopersona = new Daopersona();
-        //this.idaopersona = new 
+        this.idaoRestaurante = new Daorestaurante();
         
 
         //Botones de panel login
@@ -49,11 +58,16 @@ public class Controlador implements MouseListener {
         //Botones de panel Menu principal
         this.jfMenuPrincipal.botonCerrarSesion.addMouseListener(this);
         this.jfMenuPrincipal.botonRegistrar.addMouseListener(this);
+        this.jfMenuPrincipal.botonRegistrarRestaurante.addMouseListener(this);
 
         //Botones de panel registro
         this.jfregistro.botonCrear.addMouseListener(this);
         this.jfregistro.botonVolverRegistro.addMouseListener(this);
         this.jfregistro.comboboxRol.addMouseListener(this);
+        
+        //Botones de panel Registro Restaurante 
+        this.jfregistroRestaurante.botonGuardarRestaurante.addMouseListener(this);
+        this.jfregistroRestaurante.btVolverRegistroRestaurante.addMouseListener(this);
     }
 
     public void inicio() {
@@ -78,6 +92,9 @@ public class Controlador implements MouseListener {
             cerrarPanelMenuPrincipal();
             abrirPanelRegistrar();
 
+        } else if(e.getSource() == jfMenuPrincipal.botonRegistrarRestaurante){
+            cerrarPanelMenuPrincipal();
+            abrirPanelRegistrarRestaurante();
         }
 
         //Condiciones  para botones en el panel registro
@@ -88,6 +105,15 @@ public class Controlador implements MouseListener {
         } else if (e.getSource() == jfregistro.botonCrear) {
             validacionesParaCrearPersona();
 
+        }
+        
+        //Condiciones  para botones en el panel registro restaurante
+        if(e.getSource() == jfregistroRestaurante.btVolverRegistroRestaurante){
+            cerrarPanelRegistroRestaurante();
+            abrirPanelMenuPrincipal();
+            
+        } else if(e.getSource() == jfregistroRestaurante.botonGuardarRestaurante){
+            validacionParaCrearRestaurante();
         }
     }
 
@@ -120,6 +146,10 @@ public class Controlador implements MouseListener {
     public void cerrarPanelRegistro() {
         jfregistro.setVisible(false);
     }
+    
+    private void cerrarPanelRegistroRestaurante() {
+        jfregistroRestaurante.setVisible(false);
+    }
 
     //Metodos para abrir paneles
     
@@ -136,6 +166,11 @@ public class Controlador implements MouseListener {
     public void abrirPanelRegistrar() {
         jfregistro.setVisible(true);
         jfregistro.setLocationRelativeTo(null);
+    }
+    
+     private void abrirPanelRegistrarRestaurante() {
+        jfregistroRestaurante.setVisible(true);
+        jfregistroRestaurante.setLocationRelativeTo(null);
     }
 
     //Meotodos para limpiar datos
@@ -199,33 +234,37 @@ public class Controlador implements MouseListener {
         String documento = jfregistro.txtDocumento.getText();
 
         if (jfregistro.txtNombre.getText().equals("") || jfregistro.txtApellido.getText().equals("") || documento.equals("") || jfregistro.txtCelular.getText().equals("") || jfregistro.txtCorreo.getText().equals("") || contra.equals("") || confirContra.equals("")) {
-            JOptionPane.showMessageDialog(null, "Campos vacios, debe llenar todos los campos");
+            JOptionPane.showMessageDialog(null, "Algunos campos estan vacios, debe llenar todos los campos");
 
         } else {
 
-        }
-        if (contra.equals(confirContra)) {
+            if (contra.equals(confirContra)) {
 
-            if (esEmail(jfregistro.txtCorreo.getText())) {
+                if (esEmail(jfregistro.txtCorreo.getText())) {
 
-                if (isNumeric(documento)) {
+                    if (isNumeric(documento)) {
 
-                    crearPersonas();
+                        crearPersonas();
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "En el campo documento solo se pueden registrar numeros");
+                    }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "En el campo documento solo se pueden registrar numeros");
+                    JOptionPane.showMessageDialog(null, "El correo electronico no es valido");
+                    limpiarCorreoRegistro();
                 }
-
             } else {
-                JOptionPane.showMessageDialog(null, "El correo electronico no es valido");
-                limpiarCorreoRegistro();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Las contraseñas no son iguales");
-            limpiarContraseñas();
+                JOptionPane.showMessageDialog(null, "Las contraseñas no son iguales");
+                limpiarContraseñas();
 
+            }
         }
     }
+    
+    //Meotodo para las validaciones para crear un restaurante 
+    
+    
     
     //Metodo para almacenar una persona en la base de datos 
     
@@ -255,6 +294,61 @@ public class Controlador implements MouseListener {
         }
     }
     
+    private void validacionParaCrearRestaurante() {
+        
+        String nombreRestaurante = jfregistroRestaurante.txtNombreRestaurante.getText();
+        String direccion = jfregistroRestaurante.txtDireccion.getText();
+        String nit = jfregistroRestaurante.txtNit.getText();
+        String telefono = jfregistroRestaurante.txtTelefono.getText();
+        String UrlLogo = jfregistroRestaurante.txtUrlLogo.getText();
+        
+        if (nombreRestaurante.equals("") || direccion.equals("") || nit.equals("") || telefono.equals("") || UrlLogo.equals("")) {
+            JOptionPane.showMessageDialog(null, "Algunos campos estan vacios, debe llenar todos los campos");
+        } else {
+            
+            if (isNumeric(nombreRestaurante)) {
+                JOptionPane.showMessageDialog(null, "El nombre no puede ser solo numerico");
+                jfregistroRestaurante.txtNombreRestaurante.setText("");
+            } else {
+                
+                if (isNumeric(nit)) {
+                    
+                    if (isNumeric(telefono)) {
+                        crearRestaurante();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El numero de telefono del establecimiento solo puede ser numerico");
+                        jfregistroRestaurante.txtTelefono.setText("");
+                    }
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "El nit del establecimiento solo puede ser numerico");
+                    jfregistroRestaurante.txtNit.setText("");
+                }
+            }
+            
+        }
+        
+    }
+    
+    //Metodo para almacenar una persona en la base de datos
+    
+    public void crearRestaurante(){
+        
+        restaurante.setNombre(jfregistroRestaurante.txtNombreRestaurante.getText());
+        restaurante.setNit(jfregistroRestaurante.txtNit.getText());
+        restaurante.setDireccion(jfregistroRestaurante.txtDireccion.getText());
+        restaurante.setTelefono(jfregistroRestaurante.txtTelefono.getText());
+        restaurante.setUrlLogo(jfregistroRestaurante.txtUrlLogo.getText());
+        
+         if (idaoRestaurante.registrarRestaurante(restaurante)) {
+            JOptionPane.showMessageDialog(null, "Registro de restaurante guardado");
+            limpiarDatosRegistro();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al guardar restaurante");
+        }
+        
+    }
+    
     //Metodo para validar un formato de correo electronico en especifico 
     
     public boolean esEmail(String correo) {
@@ -272,12 +366,18 @@ public class Controlador implements MouseListener {
     
     private static boolean isNumeric(String cadena) {
         try {
-            Integer.parseInt(cadena);
+            Long.parseLong(cadena);
             return true;
         } catch (NumberFormatException nfe) {
             return false;
         }
 }
+
+    
+
+    
+
+   
 }
    
    

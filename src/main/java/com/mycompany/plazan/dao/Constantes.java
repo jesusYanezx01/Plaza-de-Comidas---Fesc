@@ -35,4 +35,14 @@ public class Constantes {
     public static final String TT_ID="id";
     public static final String TT_ROL="rol";
     
+    //Tabla Restaurante
+    public static final String T_RESTAURANTE= "restaurante";
+    public static final String TR_ID= "id";
+    public static final String TR_NOMBRE= "nombre";
+    public static final String TR_NIT= "nit";
+    public static final String TR_DIRECCION= "direccion";
+    public static final String TR_TELEFONO= "telefono";
+    public static final String TR_URLLOGO= "urlLogo";
+    public static final String TR_IDUSUARIOPROPIETARIO= "idUsuarioPropietario";
+    
 }

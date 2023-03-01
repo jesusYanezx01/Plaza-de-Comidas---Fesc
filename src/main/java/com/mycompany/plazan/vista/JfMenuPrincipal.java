@@ -30,6 +30,7 @@ public class JfMenuPrincipal extends javax.swing.JFrame {
         panelMenuPrincipal = new javax.swing.JPanel();
         botonCerrarSesion = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
+        botonRegistrarRestaurante = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,18 +43,22 @@ public class JfMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        botonRegistrar.setText("Registrar");
+        botonRegistrar.setText("Registrar persona");
+
+        botonRegistrarRestaurante.setText("Registrar Restaurante");
 
         javax.swing.GroupLayout panelMenuPrincipalLayout = new javax.swing.GroupLayout(panelMenuPrincipal);
         panelMenuPrincipal.setLayout(panelMenuPrincipalLayout);
         panelMenuPrincipalLayout.setHorizontalGroup(
             panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                .addContainerGap(402, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addComponent(botonRegistrarRestaurante)
+                .addGap(18, 18, 18)
                 .addComponent(botonRegistrar)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
                 .addComponent(botonCerrarSesion)
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
         panelMenuPrincipalLayout.setVerticalGroup(
             panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -61,7 +66,8 @@ public class JfMenuPrincipal extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCerrarSesion)
-                    .addComponent(botonRegistrar))
+                    .addComponent(botonRegistrar)
+                    .addComponent(botonRegistrarRestaurante))
                 .addContainerGap(407, Short.MAX_VALUE))
         );
 
@@ -121,6 +127,7 @@ public class JfMenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton botonCerrarSesion;
     public javax.swing.JButton botonRegistrar;
+    public javax.swing.JButton botonRegistrarRestaurante;
     public javax.swing.JPanel panelMenuPrincipal;
     // End of variables declaration//GEN-END:variables
 }
